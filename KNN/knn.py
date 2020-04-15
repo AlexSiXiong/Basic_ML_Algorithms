@@ -11,7 +11,7 @@ def KNN(k, x_train, y_train, x_predict):
     distances = [sqrt(np.sum(each_point - x_predict) ** 2) for each_point in x_train]
     nearest = np.argsort(distances)
 
-    top_k = [y_train[i] for i in nearest[:k]] # get the labels of the nearest points
+    top_k = [y_train[i] for i in nearest[:k]]  # get the labels of the nearest points
     labels = Counter(top_k)
     result = labels.most_common(1)[0][0]
 
