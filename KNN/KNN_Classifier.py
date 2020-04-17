@@ -19,12 +19,16 @@ class KNNClassifier:
         return np.array(y_predict)
 
     def _predict(self, x):
-        distances = [sqrt(np.sum(each_point - x)**2) for each_point in self._x_train]
+        distances = [sqrt(np.sum((each_point - x)**2)) for each_point in self._x_train]
         nearest = np.argsort(distances)
 
         top_k = [self._y_train[i] for i in nearest[:self.k]]
         labels = Counter(top_k)
         return labels.most_common(1)[0][0]
+
+    def score(self, x_test, y_test):
+        y_predict = self.predict(x_test)
+        return sum(y_predict == y_test) / len(y_test)
 
     def __repr__(self):
         return "KNN(K=%d)" % self.k
